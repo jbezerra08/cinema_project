@@ -10,3 +10,4 @@ class Filme:
         self.sinopse = sinopse
         self.enredo = enrendo
         self.avaliacao = avaliacao
+        

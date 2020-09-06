@@ -1,3 +1,4 @@
+
 class Usuario():
     
     def __init__(self, id, nome, email, cpf):

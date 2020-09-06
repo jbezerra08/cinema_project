@@ -3,3 +3,4 @@ class Sessao:
         self.id = id
         self.data = data
         self.horario_inicio = horario_inicio
+        

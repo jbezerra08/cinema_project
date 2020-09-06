@@ -4,3 +4,4 @@ class Comentario:
         self.usuario = usuario
         self.data = data
         self.comentario = comentario
+        

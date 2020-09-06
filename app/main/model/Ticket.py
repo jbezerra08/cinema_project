@@ -4,3 +4,4 @@ class Ticket:
         self.usuario = usuario
         self.preco = preco
         self.validade = validade
+        
