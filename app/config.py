@@ -1,3 +1,5 @@
+# False para produção
+# True para desenvolvimento
 DEBUG = True
 
 # ip = localhost, caso o acesso ao bd seja local
