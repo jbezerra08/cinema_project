@@ -1,6 +1,6 @@
 
 class Usuario():
-    
+
     def __init__(self, id, nome, email, cpf):
         self.id = id
         self.nome = nome

@@ -1,4 +1,5 @@
 class Filme:
+
     def __init__(self, id, titulo, genero, lancamento, duracao, direcao, producao, sinopse, enredo, avaliacao):
         self.id = id
         self.titulo = titulo
@@ -10,4 +11,3 @@ class Filme:
         self.sinopse = sinopse
         self.enredo = enrendo
         self.avaliacao = avaliacao
-        
