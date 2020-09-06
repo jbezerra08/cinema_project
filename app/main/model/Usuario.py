@@ -1,9 +1,8 @@
 from .. import db, bcrypt
 import datetime
 
-
 class Usuario(db.Model):
-    """ User Model para armazenar dados dos usuários """
+    """ Usuario Model para armazenar dados dos usuários """
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
