@@ -1,6 +1,14 @@
-class Filme:
+from .. import db
+
+
+class Filme(db.Model):
+    """ Filme Model para armazenar dados dos filmes """
+    __tablename__ = 'filme'
+
+    # implementar ORM
 
     def __init__(self, id, titulo, genero, lancamento, duracao, direcao, producao, sinopse, enredo, avaliacao):
+
         self.id = id
         self.titulo = titulo
         self.genero = genero
