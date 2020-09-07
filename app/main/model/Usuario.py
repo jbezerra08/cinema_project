@@ -1,5 +1,5 @@
 from .. import db, bcrypt
-import datetime
+
 
 class Usuario(db.Model):
     """ Usuario Model para armazenar dados dos usuários """
@@ -18,11 +18,11 @@ class Usuario(db.Model):
         raise AttributeError('senha: não é permitido visualizar')
 
     @password.setter
-    def password(self, password):
-        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+    def password(self, senha):
+        self.senha_hash = bcrypt.generate_password_hash(senha).decode('utf-8')
 
-    def check_password(self, password):
-        return bcrypt.check_password_hash(self.password_hash, password)
+    def check_password(self, senha):
+        return bcrypt.check_password_hash(self.senha_hash, senha)
 
     def __repr__(self):
         return f'Id: {self.public_id} Usuário: {self.nome}'

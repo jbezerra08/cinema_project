@@ -1,0 +1,33 @@
+from app.main import db
+from app.main.model import Sala
+
+
+# salva um sala no banco de dados
+def save_sala(dados):
+    pass
+
+
+# devolve todos as salas salvas no banco de dados
+def get_all_salas():
+    pass
+
+
+# devolve uma sala a partir do seu id
+def get_sala(id):
+    pass
+
+
+# atualiza/edita uma sala
+def update_sala(id):
+    pass
+
+
+# deleta uma sala a partir do seu id
+def delete_sala(id):
+    pass
+
+
+# função auxiliar para salvar no banco de dados
+def save(dados):
+    db.session.add(dados)
+    db.session.commit()
