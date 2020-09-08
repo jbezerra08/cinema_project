@@ -7,5 +7,9 @@ class Sala(db.Model):
 
     # implementar ORM
 
+    assentos = db.Column(db.Integer, nullable=False)
+
+    '''
     def __init__(self, assentos):
         self.assentos = assentos
+    '''
