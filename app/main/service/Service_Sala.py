@@ -1,33 +1,79 @@
-from app.main import db
-from app.main.model import Sala
+from main import db
+from main.model.Sala import Sala
 
 
-# salva um sala no banco de dados
-def save_sala(dados):
-    pass
+def add_sala(dados):
+    sala = Sala.query.filter_by(numero=dados['numero']).first()
+    if not sala:
+        nova_sala = Sala(
+            numero=dados['numero'],
+            total_assentos=dados['total_assentos']
+        )
+        save(nova_sala)
+        resposta = {
+            'status': 'successo',
+            'message': 'Registro adicionado com sucesso.'
+        }
+        return resposta, 201
+    else:
+        resposta = {
+            'status': 'falha',
+            'message': 'Sala já está cadastrada.'
+        }
+        return resposta, 409
 
 
-# devolve todos as salas salvas no banco de dados
 def get_all_salas():
-    pass
+    salas = Sala.query.all()
+    return salas
 
 
-# devolve uma sala a partir do seu id
-def get_sala(id):
-    pass
+def get_sala_by_id(id):
+    sala = Sala.query.get(id)
+    return sala
 
 
-# atualiza/edita uma sala
-def update_sala(id):
-    pass
+def update_sala(dados):
+    sala = get_sala_by_id(dados['id'])
+    if not sala:
+        resposta = {
+            'status': 'falha',
+            'message': 'Sala não existe.'
+        }
+        return resposta, 404
+    else:
+        sala.numero = dados['numero']
+        sala.assentos = dados['assentos']
+        db.session.commit()
+        resposta = {
+            'status': 'sucesso',
+            'message': 'Dados da sala atualizados.'
+        }
+    return resposta, 200
 
 
-# deleta uma sala a partir do seu id
 def delete_sala(id):
-    pass
+    sala = get_sala_by_id(id)
+    if not sala:
+        resposta = {
+            'status': 'falha',
+            'message': 'Sala não existe.'
+        }
+        return resposta, 404
+    else:
+        delete(sala)
+        resposta = {
+            'status': 'sucesso',
+            'message': 'Dados da sala removidos.'
+        }
+    return resposta, 200
 
 
-# função auxiliar para salvar no banco de dados
 def save(dados):
     db.session.add(dados)
+    db.session.commit()
+
+
+def delete(dados):
+    db.session.delete(dados)
     db.session.commit()
