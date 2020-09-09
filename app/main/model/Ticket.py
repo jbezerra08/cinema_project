@@ -2,19 +2,28 @@ from .. import db
 
 
 class Ticket(db.Model):
-    """ Ticket Model para armazenar dados dos tickets """
+    """ ticket Model para armazenar dados dos tickets """
     __tablename__ = 'ticket'
 
     # implementar ORM
-    id_sessao = db.Column(db.Integer)
-    id_usuario = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     preco = db.Column(db.Float, nullable=False)
     validade = db.Column(db.DateTime, nullable=False)
+    # sessao_id = db.Column(
+    #     db.Integer,
+    #     db.ForeignKey('sessao.id'),
+    #     nullable=False
+    # )
+    # usuario_id = db.Column(
+    #     db.Integer,
+    #     db.ForeignKey('usuario.id'),
+    #     nullable=False
+    # )
 
-    '''
-    def __init__(self, sessao, usuario, preco, validade):
-        self.sessao = sessao
-        self.usuario = usuario
-        self.preco = preco
-        self.validade = validade
-    '''
+    @staticmethod
+    def gerar_ticket():
+        pass
+
+    @staticmethod
+    def verificar_validade():
+        pass

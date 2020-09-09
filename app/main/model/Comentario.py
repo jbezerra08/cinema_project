@@ -6,15 +6,16 @@ class Comentario(db.Model):
     __tablename__ = 'comentario'
 
     # implementar ORM
-
-    id_filme = db.Column(db.Integer)
-    id_usuario = db.Column(db.Integer)
-    data = db.Column(db.Date, nullable=False)
-
-    '''
-    def __init__(self, filme, usuario, data, comentario):
-        self.filme = filme
-        self.usuario = usuario
-        self.data = data
-        self.comentario = comentario
-    '''
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    data = db.Column(db.DateTime, nullable=False)
+    texto_comentario = db.Column(db.Text, nullable=False)
+    filme_id = db.Column(
+        db.Integer,
+        db.ForeignKey('filme.id'),
+        nullable=False
+    )
+    usuario_id = db.Column(
+        db.Integer,
+        db.ForeignKey('usuario.id'),
+        nullable=False
+    )

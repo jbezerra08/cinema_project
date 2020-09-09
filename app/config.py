@@ -3,7 +3,8 @@
 DEBUG = True
 
 # ip = localhost, caso o acesso ao bd seja local
-uri_db = 'mysql+pymysql://usuario:senha@ip/nome-do-db'
+# uri_db = 'mysql+pymysql://usuario:senha@ip/db_nome'
+uri_db = 'sqlite:///db_cinema.db'  # /app/main/db_cinema.db
 
 SQLALCHEMY_DATABASE_URI = uri_db
 

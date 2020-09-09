@@ -6,14 +6,17 @@ class Sessao(db.Model):
     __tablename__ = 'sessao'
 
     # implementar ORM
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    data = db.Column(db.DateTime, nullable=False)
-    horario_inicio = db.Column(db.DateTime, nullable=False)
-
-    '''
-    def __init__(self, id, data, horario_inicio):
-        self.id = id
-        self.data = data
-        self.horario_inicio = horario_inicio
-    '''
+    data = db.Column(db.Date, nullable=False)
+    horario = db.Column(db.String(50), nullable=False)
+    total_tickets = db.Column(db.Integer, nullable=False)
+    # entradas = db.relationship(
+    #     'Entradas',
+    #     backref='sessao',
+    #     lazy=True
+    # )
+    # salas = db.relationship(
+    #     'Sala',
+    #     backref='sessao',
+    #     lazy=True
+    # )

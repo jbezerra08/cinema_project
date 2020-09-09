@@ -1,36 +1,89 @@
-import uuid
-import datetime
+from datetime import datetime
 
-from app.main import db
-from app.main.model import Usuario
-
-
-# salva um usuário no banco de dados
-def save_usuario(dados):
-    pass
+from main import db
+from main.model.Usuario import Usuario
 
 
-# devolve todos os usuários salvos no banco de dados
+def add_usuario(dados):
+    usuario = Usuario.query.filter_by(email=dados['email']).first()
+    if not usuario:
+        novo_usuario = Usuario(
+            nome=dados['nome'],
+            email=dados['email'],
+            senha=dados['senha'],
+            registered_on=datetime.utcnow()
+        )
+        save(novo_usuario)
+        resposta = {
+            'status': 'successo',
+            'message': 'Registro adicionado com sucesso.'
+        }
+        return resposta, 201
+    else:
+        resposta = {
+            'status': 'falha',
+            'message': 'Usuário já está cadastrado.'
+        }
+        return resposta, 409
+
+
 def get_all_usuarios():
-    pass
+    usuarios = Usuario.query.all()
+    return usuarios
 
 
-# devolve um usuário a partir do seu id público
-def get_usuario(public_id):
-    pass
+def get_usuario_by_id(dados):
+    usuario = Usuario.query.get(dados['id'])
+    return usuario
 
 
-# atualiza/edita um usuario
-def update_usuario(id):
-    pass
+def get_usuario_by_nome(nome):
+    usuario = Usuario.query.filter_by(nome=nome).first()
+    return usuario
 
 
-# deleta um usuario a partir do seu id
+def update_usuario(dados):
+    usuario = get_usuario_by_id(dados['id'])
+    if not usuario:
+        resposta = {
+            'status': 'falha',
+            'message': 'Usuário não existe.'
+        }
+        return resposta, 404
+    else:
+        usuario.nome = dados['nome']
+        usuario.email = dados['email']
+        usuario.comentarios.append(dados['texto_comentario'])
+        db.session.commit()
+        resposta = {
+            'status': 'sucesso',
+            'message': 'Dados do usuário atualizados.'
+        }
+    return resposta, 200
+
+
 def delete_usuario(id):
-    pass
+    usuario = get_usuario_by_id(dados['id'])
+    if not usuario:
+        resposta = {
+            'status': 'falha',
+            'message': 'Usuário não existe.'
+        }
+        return resposta, 404
+    else:
+        delete(usuario)
+        resposta = {
+            'status': 'sucesso',
+            'message': 'Dados do usuário removidos.'
+        }
+    return resposta, 200
 
 
-# função auxiliar para salvar no banco de dados
 def save(dados):
     db.session.add(dados)
+    db.session.commit()
+
+
+def delete(dados):
+    db.session.delete(dados)
     db.session.commit()
