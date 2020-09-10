@@ -16,11 +16,11 @@ class Usuario(db.Model):
         backref='usuario',
         lazy=True
     )
-    # entradas = db.relationship(
-    #     'Entrada',
-    #     backref='usuario',
-    #     lazy=True
-    # )
+    tickets = db.relationship(
+        'Ticket',
+        backref='usuario',
+        lazy=True
+    )
 
     @property
     def senha(self):

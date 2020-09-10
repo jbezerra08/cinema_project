@@ -1,6 +1,4 @@
 from .. import db
-# from ..model.Genero import Genero
-# from ..model.Artista import Artista
 
 
 generos = db.Table(
@@ -46,6 +44,11 @@ class Filme(db.Model):
         secondary=participantes,
         backref=db.backref('participantes', lazy='dynamic')
     )
+    sessoes = db.relationship(
+        'Sessao',
+        backref='filme',
+        lazy=True
+    )
     comentarios = db.relationship(
         'Comentario',
         backref='filme',
@@ -53,4 +56,15 @@ class Filme(db.Model):
     )
 
     def __str__(self):
-        return f'{self.titulo} {self.lancamento} {self.duracao} {self.registered_on} {self.sinopse} {self.enredo} {self.generos} {self.elenco} {self.comentarios}'
+        return """
+            'titulo': self.titulo,
+            'lancamento': self.lancamento,
+            'duracao': self.duracao,
+            'registered_on': self.registered_on,
+            'sinopse': self.sinopse,
+            'enredo': self.enredo,
+            'generos': [genero for genero in self.generos],
+            'elenco': [artista for artista in self.elenco],
+            'comentarios': [comentario for comentario in self.comentarios],
+            'sessoes': [sessao for sessao in self.sessoes]
+        """
