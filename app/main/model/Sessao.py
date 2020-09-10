@@ -10,13 +10,18 @@ class Sessao(db.Model):
     data = db.Column(db.Date, nullable=False)
     horario = db.Column(db.String(50), nullable=False)
     total_tickets = db.Column(db.Integer, nullable=False)
-    # entradas = db.relationship(
-    #     'Entradas',
-    #     backref='sessao',
-    #     lazy=True
-    # )
-    # salas = db.relationship(
-    #     'Sala',
-    #     backref='sessao',
-    #     lazy=True
-    # )
+    filme_id = db.Column(
+        db.Integer,
+        db.ForeignKey('filme.id'),
+        nullable=False
+    )
+    sala_id = db.Column(
+        db.Integer,
+        db.ForeignKey('sala.id'),
+        nullable=False
+    )
+    tickets = db.relationship(
+        'Ticket',
+        backref='sessao',
+        lazy=True
+    )

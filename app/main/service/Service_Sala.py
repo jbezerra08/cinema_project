@@ -33,6 +33,11 @@ def get_sala_by_id(id):
     return sala
 
 
+def get_sala_by_numero(numero):
+    sala = Sala.query.filter_by(numero=numero).first()
+    return sala
+
+
 def update_sala(dados):
     sala = get_sala_by_id(dados['id'])
     if not sala:

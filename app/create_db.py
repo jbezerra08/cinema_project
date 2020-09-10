@@ -1,5 +1,6 @@
 from main import create_app, db
 from datetime import date, datetime
+from json import dumps
 
 from main.service.Service_Usuario import add_usuario
 from main.service.Service_Filme import add_filme, delete_filme, get_filme_by_id
@@ -7,6 +8,7 @@ from main.service.Service_Genero import add_genero
 from main.service.Service_Artista import add_artista
 from main.service.Service_Sala import add_sala
 from main.service.Service_Comentario import add_comentario
+from main.service.Service_Sessao import add_sessao
 
 from main.model.Filme import Filme
 
@@ -63,15 +65,36 @@ filmes = [
 salas = [
     {
         'numero': 23,
-        'total_assentos': 120
+        'total_assentos': 87
     },
     {
         'numero': 22,
-        'total_assentos': 120
+        'total_assentos': 75
     },
     {
         'numero': 21,
         'total_assentos': 120
+    }
+]
+
+sessoes = [
+    {
+        'titulo': 'titulo1',
+        'numero': 22,
+        'data': '2020/11/09',
+        'horario': '20:00',
+    },
+    {
+        'titulo': 'titulo2',
+        'numero': 23,
+        'data': '2020/12/22',
+        'horario': '19:30',
+    },
+    {
+        'titulo': 'titulo2',  # não cadastra mesmo sala/horário/dia
+        'numero': 22,
+        'data': '2020/11/09',
+        'horario': '20:00',
     }
 ]
 
@@ -105,11 +128,8 @@ if __name__ == '__main__':
         print('[+] Salas created')
         [add_comentario(comentario) for comentario in comentarios]
         print('[+] Comentarios created')
+        [add_sessao(sessao) for sessao in sessoes]
+        print('[+] Sessoes created')
 
         teste1 = get_filme_by_id({'id': 2})
         print(teste1)
-
-        # delete_filme(1)
-
-        # teste1 = get_filme_by_id(1)
-        # print(teste1)
