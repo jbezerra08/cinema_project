@@ -9,6 +9,7 @@ class Comentario(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     data = db.Column(db.DateTime, nullable=False)
     texto_comentario = db.Column(db.Text, nullable=False)
+    
     filme_id = db.Column(
         db.Integer,
         db.ForeignKey('filme.id'),
