@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from main import db
-from main.model.Usuario import Usuario
+from .. import db
+from ..model.Usuario import Usuario
 
 
 def add_usuario(dados):
@@ -9,22 +9,13 @@ def add_usuario(dados):
     if not usuario:
         novo_usuario = Usuario(
             nome=dados['nome'],
+            sobrenome=dados['sobrenome'],
             email=dados['email'],
             senha=dados['senha'],
-            registered_on=datetime.utcnow()
+            data_cadastro=datetime.utcnow()
         )
         save(novo_usuario)
-        resposta = {
-            'status': 'successo',
-            'message': 'Registro adicionado com sucesso.'
-        }
-        return resposta, 201
-    else:
-        resposta = {
-            'status': 'falha',
-            'message': 'Usuário já está cadastrado.'
-        }
-        return resposta, 409
+        return novo_usuario
 
 
 def get_all_usuarios():
@@ -32,51 +23,31 @@ def get_all_usuarios():
     return usuarios
 
 
-def get_usuario_by_id(dados):
-    usuario = Usuario.query.get(dados['id'])
+def get_usuario_by_id(id):
+    usuario = Usuario.query.get(id)
     return usuario
 
 
-def get_usuario_by_nome(nome):
-    usuario = Usuario.query.filter_by(nome=nome).first()
+def get_usuario_by_email(email):
+    usuario = Usuario.query.filter_by(email=email).first()
     return usuario
 
 
-def update_usuario(dados):
-    usuario = get_usuario_by_id(dados['id'])
-    if not usuario:
-        resposta = {
-            'status': 'falha',
-            'message': 'Usuário não existe.'
-        }
-        return resposta, 404
-    else:
+def update_usuario(id, dados):
+    usuario = get_usuario_by_id(id)
+    if usuario:
         usuario.nome = dados['nome']
+        usuario.sobrenome = dados['sobrenome']
         usuario.email = dados['email']
-        usuario.comentarios.append(dados['texto_comentario'])
         db.session.commit()
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do usuário atualizados.'
-        }
-    return resposta, 200
+    return usuario
 
 
 def delete_usuario(id):
-    usuario = get_usuario_by_id(dados['id'])
-    if not usuario:
-        resposta = {
-            'status': 'falha',
-            'message': 'Usuário não existe.'
-        }
-        return resposta, 404
-    else:
+    usuario = get_usuario_by_id(id)
+    if usuario:
         delete(usuario)
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do usuário removidos.'
-        }
-    return resposta, 200
+    return usuario
 
 
 def save(dados):

@@ -1,7 +1,7 @@
 import datetime
 
-from main import db
-from main.model import Ticket
+from .. import db
+from ..model.Ticket import Ticket
 
 
 def add_ticket(dados):

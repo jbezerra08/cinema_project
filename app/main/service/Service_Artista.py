@@ -1,5 +1,5 @@
-from main import db
-from main.model.Artista import Artista
+from .. import db
+from ..model.Artista import Artista
 
 
 def add_artista(dados):
@@ -9,17 +9,7 @@ def add_artista(dados):
             nome=dados['nome'],
         )
         save(novo_artista)
-        resposta = {
-            'status': 'successo',
-            'message': 'Registro adicionado com sucesso.'
-        }
-        return resposta, 201
-    else:
-        resposta = {
-            'status': 'falha',
-            'message': 'Artista já está cadastrado.'
-        }
-        return resposta, 409
+        return novo_artista
 
 
 def get_all_artistas():
@@ -39,37 +29,17 @@ def get_artista_by_nome(nome):
 
 def update_artista(dados):
     artista = get_artista_by_id(dados['id'])
-    if not artista:
-        resposta = {
-            'status': 'falha',
-            'message': 'Artista não existe.'
-        }
-        return resposta, 404
-    else:
+    if artista:
         artista.nome = dados['nome']
         db.session.commit()
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do artista atualizados.'
-        }
-    return resposta, 200
+        return artista
 
 
 def delete_artista(id):
-    artista = get_artista_by_id(dados['id'])
-    if not artista:
-        resposta = {
-            'status': 'falha',
-            'message': 'Artista não existe.'
-        }
-        return resposta, 404
-    else:
+    artista = get_artista_by_id(id)
+    if artista:
         delete(artista)
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do artista removidos.'
-        }
-    return resposta, 200
+        return artista
 
 
 def save(dados):

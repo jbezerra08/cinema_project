@@ -1,8 +1,8 @@
-from .Artista import Artista
-from .Comentario import Comentario
-from .Filme import Filme
-from .Genero import Genero
-from .Sala import Sala
-from .Sessao import Sessao
-from .Ticket import Ticket
-from .Usuario import Usuario
+from .Artista import Artista, ArtistaSchema
+from .Comentario import Comentario, ComentarioSchema
+from .Filme import Filme, FilmeSchema
+from .Genero import Genero, GeneroSchema
+from .Sala import Sala, SalaSchema
+from .Sessao import Sessao, SessaoSchema
+from .Ticket import Ticket, TicketSchema
+from .Usuario import Usuario, UsuarioSchema

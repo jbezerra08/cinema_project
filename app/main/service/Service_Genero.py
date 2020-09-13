@@ -1,5 +1,5 @@
-from main import db
-from main.model.Genero import Genero
+from .. import db
+from ..model.Genero import Genero
 
 
 def add_genero(dados):
@@ -9,17 +9,7 @@ def add_genero(dados):
             tipo=dados['tipo'],
         )
         save(novo_genero)
-        resposta = {
-            'status': 'successo',
-            'message': 'Registro adicionado com sucesso.'
-        }
-        return resposta, 201
-    else:
-        resposta = {
-            'status': 'falha',
-            'message': 'Genero já está cadastrado.'
-        }
-        return resposta, 409
+        return novo_genero
 
 
 def get_all_generos():
@@ -39,37 +29,17 @@ def get_genero_by_tipo(tipo):
 
 def update_genero(dados):
     genero = get_genero_by_id(dados['id'])
-    if not genero:
-        resposta = {
-            'status': 'falha',
-            'message': 'Genero não existe.'
-        }
-        return resposta, 404
-    else:
+    if genero:
         genero.tipo = dados['tipo']
         db.session.commit()
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do Genero atualizados.'
-        }
-    return resposta, 200
+        return genero
 
 
 def delete_genero(id):
-    genero = get_genero_by_id(dados['id'])
-    if not genero:
-        resposta = {
-            'status': 'falha',
-            'message': 'Genero não existe.'
-        }
-        return resposta, 404
-    else:
+    genero = get_genero_by_id(id)
+    if genero:
         delete(genero)
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do Genero removidos.'
-        }
-    return resposta, 200
+    return genero
 
 
 def save(dados):

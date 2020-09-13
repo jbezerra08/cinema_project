@@ -1,4 +1,4 @@
-from .. import db
+from .. import db, ma
 
 
 class Ticket(db.Model):
@@ -29,3 +29,13 @@ class Ticket(db.Model):
     def verificar_validade():
         """ validade <= data atual """
         pass
+
+
+class TicketSchema(ma.Schema):
+    class Meta:
+        model = Ticket
+        fields = ('id', 'preco', 'validade')
+
+
+ticket_schema = TicketSchema()
+tickets_schema = TicketSchema(many=True)

@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from main import db
-from main.model.Filme import Filme
-from main.service.Service_Genero import get_genero_by_tipo
-from main.service.Service_Artista import get_artista_by_nome
+from .. import db
+from ..model.Filme import Filme, filme_schema, filmes_schema
+from .Service_Genero import get_genero_by_tipo
+from .Service_Artista import get_artista_by_nome
 
 
 # adiciona apenas os generos e artistas previamente cadastrados
@@ -23,26 +23,16 @@ def add_filme(dados):
         [novo_filme.elenco.append(obj) for obj in
             [get_artista_by_nome(artista) for artista in dados['elenco']]]
         save(novo_filme)
-        resposta = {
-            'status': 'successo',
-            'message': 'Registro adicionado com sucesso.'
-        }
-        return resposta, 201
-    else:
-        resposta = {
-            'status': 'falha',
-            'message': 'Filme já está cadastrado.'
-        }
-        return resposta, 409
+        return novo_filme
 
 
 def get_all_filmes():
-    filmes = Filmes.query.all()
+    filmes = Filme.query.all()
     return filmes
 
 
-def get_filme_by_id(dados):
-    filme = Filme.query.get(dados['id'])
+def get_filme_by_id(id):
+    filme = Filme.query.get(id)
     return filme
 
 
@@ -51,44 +41,23 @@ def get_filme_by_titulo(titulo):
     return filme
 
 
-def update_filme(dados):
-    filme = get_filme_by_id(dados['id'])
-    if not filme:
-        resposta = {
-            'status': 'falha',
-            'message': 'Filme não existe.'
-        }
-        return resposta, 404
-    else:
+def update_filme(id, dados):
+    filme = get_filme_by_id(id)
+    if filme:
         filme.titulo = dados['titulo']
         filme.lancamento = dados['lancamento']
         filme.duracao = dados['duracao']
         filme.sinopse = dados['sinopse']
         filme.enredo = dados['enredo']
-        filme.comentarios.append(dados['texto_comentario'])
         db.session.commit()
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do filme atualizados.'
-        }
-    return resposta, 200
+        return filme
 
 
 def delete_filme(id):
     filme = get_filme_by_id(id)
-    if not filme:
-        resposta = {
-            'status': 'falha',
-            'message': 'Filme não existe.'
-        }
-        return resposta, 404
-    else:
+    if filme:
         delete(filme)
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados do filme removidos.'
-        }
-    return resposta, 200
+        return filme
 
 
 def save(dados):
