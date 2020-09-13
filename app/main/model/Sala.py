@@ -1,4 +1,5 @@
-from .. import db
+from .. import db, ma
+from .Sessao import SessaoSchema
 
 
 class Sala(db.Model):
@@ -14,3 +15,15 @@ class Sala(db.Model):
         backref='sala',
         lazy=True
     )
+
+
+class SalaSchema(ma.Schema):
+    sessoes = ma.List(ma.Nested(SessaoSchema))
+
+    class Meta:
+        model = Sala
+        fields = ('id', 'numero', 'total_assentos', 'sessoes')
+
+
+sala_schema = SalaSchema()
+salas_schema = SalaSchema(many=True)

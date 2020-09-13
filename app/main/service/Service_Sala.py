@@ -1,5 +1,5 @@
-from main import db
-from main.model.Sala import Sala
+from .. import db
+from ..model.Sala import Sala
 
 
 def add_sala(dados):
@@ -10,17 +10,7 @@ def add_sala(dados):
             total_assentos=dados['total_assentos']
         )
         save(nova_sala)
-        resposta = {
-            'status': 'successo',
-            'message': 'Registro adicionado com sucesso.'
-        }
-        return resposta, 201
-    else:
-        resposta = {
-            'status': 'falha',
-            'message': 'Sala já está cadastrada.'
-        }
-        return resposta, 409
+        return nova_sala
 
 
 def get_all_salas():
@@ -38,40 +28,20 @@ def get_sala_by_numero(numero):
     return sala
 
 
-def update_sala(dados):
-    sala = get_sala_by_id(dados['id'])
-    if not sala:
-        resposta = {
-            'status': 'falha',
-            'message': 'Sala não existe.'
-        }
-        return resposta, 404
-    else:
+def update_sala(id, dados):
+    sala = get_sala_by_id(id)
+    if sala:
         sala.numero = dados['numero']
         sala.assentos = dados['assentos']
         db.session.commit()
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados da sala atualizados.'
-        }
-    return resposta, 200
+    return sala
 
 
 def delete_sala(id):
     sala = get_sala_by_id(id)
-    if not sala:
-        resposta = {
-            'status': 'falha',
-            'message': 'Sala não existe.'
-        }
-        return resposta, 404
-    else:
+    if sala:
         delete(sala)
-        resposta = {
-            'status': 'sucesso',
-            'message': 'Dados da sala removidos.'
-        }
-    return resposta, 200
+    return sala
 
 
 def save(dados):

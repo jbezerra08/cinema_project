@@ -1,29 +1,33 @@
 from main import create_app, db
-from datetime import date, datetime
-from json import dumps
 
-from main.service.Service_Usuario import add_usuario
-from main.service.Service_Filme import add_filme, delete_filme, get_filme_by_id
-from main.service.Service_Genero import add_genero
-from main.service.Service_Artista import add_artista
-from main.service.Service_Sala import add_sala
-from main.service.Service_Comentario import add_comentario
-from main.service.Service_Sessao import add_sessao
-
-from main.model.Filme import Filme
+from main.service import Service_Usuario
+from main.service import Service_Filme
+from main.service import Service_Genero
+from main.service import Service_Artista
+from main.service import Service_Sala
+from main.service import Service_Comentario
+from main.service import Service_Sessao
 
 app = create_app('config')
 
 usuarios = [
     {
         'nome': 'matheus',
+        'sobrenome': 'matias',
         'email': 'matheus@email.com',
         'senha': '123456'
     },
     {
-        'nome': 'jailson',
+        'nome': 'francisco',
+        'sobrenome': 'jailson',
         'email': 'jailson@email.com',
         'senha': '654321'
+    },
+    {
+        'nome': 'matheus',
+        'sobrenome': 'matias',
+        'email': 'matheus@email.com',
+        'senha': '123456'
     }
 ]
 
@@ -101,12 +105,12 @@ sessoes = [
 comentarios = [
     {
         'titulo': 'titulo2',
-        'nome': 'matheus',
+        'email': 'matheus@email.com',
         'texto_comentario': 'Filme não assusta muito.'
     },
     {
         'titulo': 'titulo2',
-        'nome': 'jailson',
+        'email': 'jailson@email.com',
         'texto_comentario': 'Legal.'
     }
 ]
@@ -116,20 +120,17 @@ if __name__ == '__main__':
         db.drop_all()
         db.create_all()
         print('[+] Database created')
-        [add_usuario(usuario) for usuario in usuarios]
+        [Service_Usuario.add_usuario(usuario) for usuario in usuarios]
         print('[+] Usuarios created')
-        [add_artista(ator) for ator in atores]
+        [Service_Artista.add_artista(ator) for ator in atores]
         print('[+] Artistas created')
-        [add_genero(genero) for genero in generos]
+        [Service_Genero.add_genero(genero) for genero in generos]
         print('[+] Generos created')
-        [add_filme(filme) for filme in filmes]
+        [Service_Filme.add_filme(filme) for filme in filmes]
         print('[+] Filmes created')
-        [add_sala(sala) for sala in salas]
+        [Service_Sala.add_sala(sala) for sala in salas]
         print('[+] Salas created')
-        [add_comentario(comentario) for comentario in comentarios]
+        [Service_Comentario.add_comentario(comentario) for comentario in comentarios]
         print('[+] Comentarios created')
-        [add_sessao(sessao) for sessao in sessoes]
+        [Service_Sessao.add_sessao(sessao) for sessao in sessoes]
         print('[+] Sessoes created')
-
-        teste1 = get_filme_by_id({'id': 2})
-        print(teste1)

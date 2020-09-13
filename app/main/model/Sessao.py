@@ -1,4 +1,5 @@
-from .. import db
+from .. import db, ma
+from .Ticket import Ticket, TicketSchema
 
 
 class Sessao(db.Model):
@@ -25,3 +26,15 @@ class Sessao(db.Model):
         backref='sessao',
         lazy=True
     )
+
+
+class SessaoSchema(ma.Schema):
+    tickets = ma.List(ma.Nested(TicketSchema))
+
+    class Meta:
+        model = Sessao
+        fields = ('id', 'data', 'horario', 'total_tickets', 'tickets')
+
+
+sessao_schema = SessaoSchema()
+sessoes_schema = SessaoSchema(many=True)
