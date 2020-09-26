@@ -11,6 +11,7 @@ class Sessao(db.Model):
     data = db.Column(db.Date, nullable=False)
     horario = db.Column(db.String(50), nullable=False)
     total_tickets = db.Column(db.Integer, nullable=False)
+    preco = db.Column(db.Float, nullable=False)
     filme_id = db.Column(
         db.Integer,
         db.ForeignKey('filme.id'),
@@ -33,7 +34,7 @@ class SessaoSchema(ma.Schema):
 
     class Meta:
         model = Sessao
-        fields = ('id', 'data', 'horario', 'total_tickets', 'tickets')
+        fields = ('id', 'data', 'horario', 'total_tickets', 'preco', 'tickets')
 
 
 sessao_schema = SessaoSchema()

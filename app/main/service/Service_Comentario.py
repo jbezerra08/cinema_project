@@ -29,8 +29,8 @@ def get_all_comentarios():
     return comentarios
 
 
-def get_comentarios_by_id(dados):
-    comentario = Comentario.query.get(dados['id'])
+def get_comentario_by_id(id):
+    comentario = Comentario.query.get(id)
     return comentario
 
 
@@ -46,14 +46,20 @@ def get_comentarios_by_usuario(dados):
     return comentarios
 
 
-# usuario atualiza um comentário em um filme
 def update_comentario(dados):
-    pass
+    comentario = get_comentarios_by_id(dados['id'])
+    if comentario:
+        comentario.data = datetime.utcnow()
+        comentario.texto_comentario = dados['texto_comentario']
+        db.session.commit()
+        return comentario
 
 
-# usuario deleta um comentário em um filme
-def delete_comentario(dados):
-    pass
+def delete_comentario(id):
+    comentario = get_comentarios_by_id(id)
+    if comentario:
+        delete(comentario)
+        return comentario
 
 
 def save(dados):

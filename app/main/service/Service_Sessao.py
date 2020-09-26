@@ -19,7 +19,8 @@ def add_sessao(dados):
         nova_sessao = Sessao(
             data=datetime.strptime(dados['data'], '%Y/%m/%d'),
             horario=dados['horario'],
-            total_tickets=sala.total_assentos
+            total_tickets=sala.total_assentos,
+            preco=dados['preco']
         )
         nova_sessao.filme = filme
         nova_sessao.sala = sala
@@ -33,16 +34,25 @@ def get_all_sessoes():
 
 
 def get_sessao_by_id(id):
-    sessao = Sessao.query.filter_by(id=id).first()
+    sessao = Sessao.query.get(id)
     return sessao
 
 
-def update_sessao(id, dados):
-    pass
+# apenas tickets -> cada compra reduz o total disponivel
+# caso ocorra algum erro no cadastro da sessão é necessário apagar o registro e cadastrar novamente
+def update_tickets_sessao(id, quantidade_comprada):
+    sessao = get_sessao_by_id(id)
+    if sessao:
+        sessao.total_tickets -= quantidade_comprada
+        db.session.commit()
+        return sessao
 
 
 def delete_sessao(id):
-    pass
+    sessao = get_sessao_by_id(id)
+    if sessao:
+        delete(sessao)
+        return sessao
 
 
 def save(dados):

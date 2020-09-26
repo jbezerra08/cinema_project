@@ -34,14 +34,14 @@ def update_sala(id, dados):
         sala.numero = dados['numero']
         sala.assentos = dados['assentos']
         db.session.commit()
-    return sala
+        return sala
 
 
 def delete_sala(id):
     sala = get_sala_by_id(id)
     if sala:
         delete(sala)
-    return sala
+        return sala
 
 
 def save(dados):
