@@ -40,14 +40,14 @@ def update_usuario(id, dados):
         usuario.sobrenome = dados['sobrenome']
         usuario.email = dados['email']
         db.session.commit()
-    return usuario
+        return usuario
 
 
 def delete_usuario(id):
     usuario = get_usuario_by_id(id)
     if usuario:
         delete(usuario)
-    return usuario
+        return usuario
 
 
 def save(dados):

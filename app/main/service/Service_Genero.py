@@ -39,7 +39,7 @@ def delete_genero(id):
     genero = get_genero_by_id(id)
     if genero:
         delete(genero)
-    return genero
+        return genero
 
 
 def save(dados):

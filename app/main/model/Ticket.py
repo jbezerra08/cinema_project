@@ -7,7 +7,7 @@ class Ticket(db.Model):
 
     # implementar ORM
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    preco = db.Column(db.Float, nullable=False)
+    total_pago = db.Column(db.Float, nullable=False)
     validade = db.Column(db.DateTime, nullable=False)
     sessao_id = db.Column(
         db.Integer,
@@ -34,7 +34,7 @@ class Ticket(db.Model):
 class TicketSchema(ma.Schema):
     class Meta:
         model = Ticket
-        fields = ('id', 'preco', 'validade')
+        fields = ('id', 'total_pago', 'validade')
 
 
 ticket_schema = TicketSchema()

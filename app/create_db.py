@@ -7,6 +7,7 @@ from main.service import Service_Artista
 from main.service import Service_Sala
 from main.service import Service_Comentario
 from main.service import Service_Sessao
+from main.service import Service_Ticket
 
 app = create_app('config')
 
@@ -87,18 +88,34 @@ sessoes = [
         'numero': 22,
         'data': '2020/11/09',
         'horario': '20:00',
+        'preco': 12.40
     },
     {
         'titulo': 'titulo2',
         'numero': 23,
         'data': '2020/12/22',
         'horario': '19:30',
+        'preco': 15.00
     },
     {
         'titulo': 'titulo2',  # não cadastra mesmo sala/horário/dia
         'numero': 22,
         'data': '2020/11/09',
         'horario': '20:00',
+        'preco': 16.00
+    }
+]
+
+tickets = [
+    {
+        'id': 2,
+        'email': 'matheus@email.com',
+        'quantidade_comprada': 1
+    },
+    {
+        'id': 2,
+        'email': 'jailson@email.com',
+        'quantidade_comprada': 1
     }
 ]
 
@@ -134,3 +151,5 @@ if __name__ == '__main__':
         print('[+] Comentarios created')
         [Service_Sessao.add_sessao(sessao) for sessao in sessoes]
         print('[+] Sessoes created')
+        [Service_Ticket.add_ticket(ticket) for ticket in tickets]
+        print('[+] Tickets created')
