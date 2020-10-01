@@ -9,7 +9,7 @@ from main.service import Service_Comentario
 from main.service import Service_Sessao
 from main.service import Service_Ticket
 
-app = create_app('config')
+app = create_app('config.ConfigTest')
 
 usuarios = [
     {

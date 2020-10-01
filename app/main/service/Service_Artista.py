@@ -27,8 +27,8 @@ def get_artista_by_nome(nome):
     return artista
 
 
-def update_artista(dados):
-    artista = get_artista_by_id(dados['id'])
+def update_artista(id, dados):
+    artista = get_artista_by_id(id)
     if artista:
         artista.nome = dados['nome']
         db.session.commit()

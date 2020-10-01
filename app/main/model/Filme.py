@@ -27,7 +27,6 @@ participantes = db.Table(
 
 
 class Filme(db.Model):
-    """ Filme Model para armazenar dados dos filmes """
     __tablename__ = 'filme'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -49,11 +48,13 @@ class Filme(db.Model):
     )
     sessoes = db.relationship(
         'Sessao',
+        cascade='all, delete',
         backref='filme',
         lazy=True
     )
     comentarios = db.relationship(
         'Comentario',
+        cascade='all, delete',
         backref='filme',
         lazy=True
     )

@@ -2,7 +2,6 @@ from .. import db, ma
 
 
 class Artista(db.Model):
-    """ Arstista Model para armazenar participantes de um filme """
     __tablename__ = 'artista'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -12,7 +11,10 @@ class Artista(db.Model):
 class ArtistaSchema(ma.Schema):
     class Meta:
         model = Artista
-        fields = ('id', 'nome')
+        fields = (
+            'id',
+            'nome'
+        )
 
 
 artista_schema = ArtistaSchema()

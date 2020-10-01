@@ -45,7 +45,7 @@ def update_filme(id, dados):
     filme = get_filme_by_id(id)
     if filme:
         filme.titulo = dados['titulo']
-        filme.lancamento = dados['lancamento']
+        filme.lancamento = datetime.strptime(dados['lancamento'], '%Y/%m/%d')
         filme.duracao = dados['duracao']
         filme.sinopse = dados['sinopse']
         filme.enredo = dados['enredo']

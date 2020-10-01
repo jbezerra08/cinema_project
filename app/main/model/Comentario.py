@@ -2,7 +2,6 @@ from .. import db, ma
 
 
 class Comentario(db.Model):
-    """ Comentario Model para armazenar os comentarios """
     __tablename__ = 'comentario'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -16,14 +15,20 @@ class Comentario(db.Model):
     usuario_id = db.Column(
         db.Integer,
         db.ForeignKey('usuario.id'),
-        nullable=False
+        nullable=True
     )
 
 
 class ComentarioSchema(ma.Schema):
     class Meta:
         model = Comentario
-        fields = ('id', 'data', 'texto_comentario')
+        fields = (
+            'id',
+            'data',
+            'texto_comentario',
+            'filme_id',
+            'usuario_id'
+        )
 
 
 comentario_schema = ComentarioSchema()
