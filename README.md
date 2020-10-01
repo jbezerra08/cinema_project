@@ -8,7 +8,7 @@ Aplicação back-end para catologar e gerenciar filmes.
 - [Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/)
 - [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/)
 
-## Configurando virtual enviroment
+## Configurando Virtual environment
 
 - [Pipenv](https://docs.pipenv.org/en/latest/)
 
