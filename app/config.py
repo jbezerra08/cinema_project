@@ -1,12 +1,25 @@
-# False para produção
-# True para desenvolvimento
-DEBUG = True
+import os
 
-# caso o acesso ao bd seja local
-ip = "localhost"
-uri_db = 'mysql+pymysql://jb:96033023@'+ip+'/test'
-#uri_db = 'sqlite:///db_cinema.db'  # /app/main/db_cinema.db
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-SQLALCHEMY_DATABASE_URI = uri_db
 
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+class ConfigDesenvolvimento():
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db_cinema_dev.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JWT_SECRET_KEY = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
+
+
+class ConfigTest():
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db_cinema_test.db')
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JWT_SECRET_KEY = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
+
+
+class ProdConfig():
+    DEBUG = False
+    # SQLALCHEMY_DATABASE_URI = mysql+pymysql://usuario:senha@ip/nome_do_db
+    JWT_SECRET_KEY = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'

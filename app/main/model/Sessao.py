@@ -3,10 +3,8 @@ from .Ticket import Ticket, TicketSchema
 
 
 class Sessao(db.Model):
-    """ Sessao Model para armazenar dados das sessões """
     __tablename__ = 'sessao'
 
-    # implementar ORM
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     data = db.Column(db.Date, nullable=False)
     horario = db.Column(db.String(50), nullable=False)
@@ -34,7 +32,16 @@ class SessaoSchema(ma.Schema):
 
     class Meta:
         model = Sessao
-        fields = ('id', 'data', 'horario', 'total_tickets', 'preco', 'tickets')
+        fields = (
+            'id',
+            'data',
+            'horario',
+            'total_tickets',
+            'preco',
+            'filme_id',
+            'sala_id',
+            'tickets'
+        )
 
 
 sessao_schema = SessaoSchema()

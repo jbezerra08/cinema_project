@@ -32,7 +32,7 @@ def update_sala(id, dados):
     sala = get_sala_by_id(id)
     if sala:
         sala.numero = dados['numero']
-        sala.assentos = dados['assentos']
+        sala.assentos = dados['total_assentos']
         db.session.commit()
         return sala
 

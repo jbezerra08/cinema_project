@@ -4,7 +4,6 @@ from .Ticket import TicketSchema
 
 
 class Usuario(db.Model):
-    """ Usuario Model para armazenar dados dos usuários """
     __tablename__ = 'usuario'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -31,6 +30,9 @@ class Usuario(db.Model):
     @senha.setter
     def senha(self, senha):
         self.senha_hash = bcrypt.generate_password_hash(senha).decode('utf-8')
+
+    def verificar_senha(self, senha):
+        return bcrypt.check_password_hash(self.senha_hash, senha)
 
 
 class UsuarioSchema(ma.Schema):

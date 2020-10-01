@@ -27,8 +27,8 @@ def get_genero_by_tipo(tipo):
     return genero
 
 
-def update_genero(dados):
-    genero = get_genero_by_id(dados['id'])
+def update_genero(id, dados):
+    genero = get_genero_by_id(id)
     if genero:
         genero.tipo = dados['tipo']
         db.session.commit()

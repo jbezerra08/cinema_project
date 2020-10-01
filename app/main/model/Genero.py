@@ -2,7 +2,6 @@ from .. import db, ma
 
 
 class Genero(db.Model):
-    """ Genero Model para armazenar generos de filmes """
     __tablename__ = 'genero'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -12,7 +11,10 @@ class Genero(db.Model):
 class GeneroSchema(ma.Schema):
     class Meta:
         model = Genero
-        fields = ('id', 'tipo')
+        fields = (
+            'id',
+            'tipo'
+        )
 
 
 genero_schema = GeneroSchema()

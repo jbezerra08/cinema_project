@@ -11,13 +11,13 @@ def add_sessao(dados):
     filme = get_filme_by_titulo(dados['titulo'])
     sala = get_sala_by_numero(dados['numero'])
     sessao = Sessao.query.filter(
-        Sessao.data == dados['data'],
-        Sessao.horario == dados['horario'],
-        Sessao.sala_id == sala.id
-    ).first()
+                    Sessao.sala_id == sala.id,
+                    Sessao.data == datetime.strptime(dados['data'], '%Y/%m/%d').date(),
+                    Sessao.horario == dados['horario']
+                    ).first()
     if filme and sala and not sessao:
         nova_sessao = Sessao(
-            data=datetime.strptime(dados['data'], '%Y/%m/%d'),
+            data=datetime.strptime(dados['data'], '%Y/%m/%d').date(),
             horario=dados['horario'],
             total_tickets=sala.total_assentos,
             preco=dados['preco']

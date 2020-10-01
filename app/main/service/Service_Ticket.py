@@ -1,5 +1,3 @@
-import datetime
-
 from .. import db
 from ..model.Ticket import Ticket
 
@@ -12,7 +10,7 @@ def add_ticket(dados):
     usuario = get_usuario_by_email(dados['email'])
     if sessao and usuario and sessao.total_tickets >= dados['quantidade_comprada']:
         novo_ticket = Ticket(
-            total_pago=sessao.preco,
+            total_pago=sessao.preco * dados['quantidade_comprada'],
             validade=sessao.data
         )
         novo_ticket.sessao = sessao
@@ -32,7 +30,7 @@ def get_ticket_by_id(id):
     return ticket
 
 
-def update_ticket(id):
+def update_ticket(id, dados):
     pass
 
 

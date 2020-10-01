@@ -47,7 +47,7 @@ def get_comentarios_by_usuario(dados):
 
 
 def update_comentario(dados):
-    comentario = get_comentarios_by_id(dados['id'])
+    comentario = get_comentario_by_id(dados['id'])
     if comentario:
         comentario.data = datetime.utcnow()
         comentario.texto_comentario = dados['texto_comentario']
@@ -56,7 +56,7 @@ def update_comentario(dados):
 
 
 def delete_comentario(id):
-    comentario = get_comentarios_by_id(id)
+    comentario = get_comentario_by_id(id)
     if comentario:
         delete(comentario)
         return comentario
